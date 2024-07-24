@@ -6,18 +6,14 @@ The Coworking Space Service is a set of APIs that enables users to request one-t
 For this project, you are a DevOps engineer who will be collaborating with a team that is building an API for business analysts. The API provides business analysts basic analytics data on user activity in the service. The application they provide you functions as expected locally and you are expected to help build a pipeline to deploy it in Kubernetes.
 
 ## Getting Started
-
 ### Dependencies
-
 #### Local Environment
-
 1. Python Environment - run Python 3.6+ applications and install Python dependencies via `pip`
 2. Docker CLI - build and run Docker images locally
 3. `kubectl` - run commands against a Kubernetes cluster
 4. `helm` - apply Helm Charts to a Kubernetes cluster
 
 #### Remote Resources
-
 1. AWS CodeBuild - build Docker images remotely
 2. AWS ECR - host Docker images
 3. Kubernetes Environment with AWS EKS - run applications in k8s
@@ -26,7 +22,6 @@ For this project, you are a DevOps engineer who will be collaborating with a tea
 
 ### Setup
 #### 1. Configure a Database
-
 Set up a Postgres database using a Helm Chart.
 
 1. Set up Bitnami Repo
@@ -73,29 +68,29 @@ kubectl port-forward --namespace default svc/<SERVICE_NAME>-postgresql 5432:5432
     PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < <FILE_NAME.sql>
 ```
 ## Create a Dockerfile for the Python Application
-
+Dockerfile
 [Dockerfile](./Dockerfile)
 
 ## Write a Build Pipeline with AWS CodeBuild
-
 buildspec File
 [buildspec.yaml](./buildspec.yaml)
 
-BulidCode history
-
 ## Create Kubernetes Service and Deployment
-
 1. List Services
    ```bash
    kubectl get svc
    kubectl describe svc
    ```
-   
+   [kubectl get svc](./KubeCtl_Get_SVC.png)\
+   [kubectl describe svc developmenet](./KubeCtl_Describe_SVC_Deployment.png)\
+   [kubectl describe svc database](./KubeCtl_Describe_SVC_Database.png)
+
 2. List Pods
    ```bash
    kubectl get pods
    kubectl describe pods
    ```
+   [kubectl get pods](./KubeCtl_Get_Pods.png)
    
 ## AWS CloudWatch for Logs
 [AWS CloudWatch Log](./AWS_CloudWatch.png)
