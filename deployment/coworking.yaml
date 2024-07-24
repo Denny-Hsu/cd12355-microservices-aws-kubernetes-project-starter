@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: coworking
-        image: <DOCKER_IMAGE_URI_FROM_ECR>
+        image: 276596671896.dkr.ecr.us-east-1.amazonaws.com/coworking:latest
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -44,13 +44,35 @@ spec:
             port: 5153
           initialDelaySeconds: 5
           timeoutSeconds: 5
-        envFrom:
-        - configMapRef:
-            name: <NAME OF THE ConfigMap>
+        # envFrom:
+        # - secretRef:
+        #     name: dbsecret
+        # - configMapRef:
+        #     name: dbconfigmap
         env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_PORT
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: <NAME OF THE Secret>
-              key: <THE KEY FROM Secret WHICH has THE ENCODED PASSWORD>
+              name: dbsecret
+              key: DB_PASSWORD
       restartPolicy: Always
